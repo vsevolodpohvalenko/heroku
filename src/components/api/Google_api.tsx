@@ -1,10 +1,12 @@
 import React from "react";
-import {config, instance} from "./api";
+import { instance} from "./api";
 
 
-export const googleLogin = async (accessToken: string) => {
-    return instance.post('rest-auth/google/', {access_token: accessToken}, config)
+export const googleLogin = async (accessToken: string, configForLogin: any) => {
+    debugger
+    return instance.post('rest-auth/google/', {access_token: accessToken}, configForLogin)
 }
-export const logOut = async  () => {
-    return instance.post('rest-auth/logout/')
+export const logOut = async  (configForLogin : any) => {
+    debugger
+    return instance.post('rest-auth/logout/', {} , configForLogin)
 }
