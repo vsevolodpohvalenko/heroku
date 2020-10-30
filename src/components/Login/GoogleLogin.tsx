@@ -8,6 +8,8 @@ import { LogoutOutlined } from '@ant-design/icons';
 export const GoogleSocialAuth = () => {
     const googleResponse = (response: any) => {
         debugger
+        console.log("all right")
+        console.log(response)
       googleLogin(response.accessToken).then(r => localStorage.setItem('key', r.data.key), message.success('Connected with Google!', 10))
 
     }
@@ -18,8 +20,9 @@ export const GoogleSocialAuth = () => {
         logOut().then(r => message.info("You're logged out", 3))
     }
 
-    function esponseGoogle() {
-
+    function responseGoogle(response: any) {
+        console.log("smth bad")
+        console.log(response)
     }
 
     return (
@@ -29,7 +32,7 @@ export const GoogleSocialAuth = () => {
           clientId="383178123345-iirqu0274iepnsnp9bt39hhvmt5ej19l.apps.googleusercontent.com"
           buttonText="LOGIN WITH GOOGLE"
           onSuccess={googleResponse}
-          onFailure={esponseGoogle}
+          onFailure={responseGoogle}
         />
         <Button onClick={handleSubmit}
           type="primary"
