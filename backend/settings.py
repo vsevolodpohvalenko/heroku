@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os, sys
 from pathlib import Path
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from decouple import config
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
@@ -101,15 +102,13 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        "NAME": config("database"),
-        'USER': config('user'),
-        'PASSWORD': config('password')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
