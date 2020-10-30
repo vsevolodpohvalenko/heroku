@@ -6,7 +6,7 @@ export const config = {
     }
 }
 export const instance = axios.create({
-    baseURL: 'https://react-django-seva.herokuapp.com/',
+    baseURL: 'https://react-pr.herokuapp.com/',
 })
 export const configForData = {
     headers: {
