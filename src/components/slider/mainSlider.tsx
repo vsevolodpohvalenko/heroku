@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Slider} from "./Slider";
 import {Carousel} from 'antd';
 import 'antd/dist/antd.css';
+import s from './slider.module.css'
 import {AppStateType, store} from '../../store/store'
 import {css} from "@emotion/core";
 import {connect} from "react-redux";
@@ -17,18 +18,13 @@ const MainSlider = ({collapse, slides, getSlidesR}: any) => {
     ]
     useEffect(() => {
         getSlidesR()
-    })
+    }, [])
     return (
         <div>
-            <Carousel autoplay effect="fade">
+            <Carousel  autoplay effect="fade">
                 {slides.map((i:any) => (
-                    <div><div css={css`      background-image: url(${i.slide});
-                         background-size: cover;
-                         background-repeat: no-repeat;
-                         background-position: center;
-                         width: 100%;
-                         height: 400px`}>
-                    </div></div>))}
+                    <div><img className={s.slide} src={i.slide}/></div>))}
+
 
 
             </Carousel>,
