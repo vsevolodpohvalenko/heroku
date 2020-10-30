@@ -1,0 +1,11 @@
+section.light aside div.ant-layout-sider-trigger{
+    background-color: lightgrey;
+}
+.light {
+    background-color: white;
+    color: black;
+}
+
+section.light aside div.ant-layout-sider-trigger span{
+    color: black;
+}
