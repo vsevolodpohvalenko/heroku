@@ -33,7 +33,6 @@ export const GoogleSocialAuth = () => {
         />
         <Button onClick={handleSubmit}
           type="primary"
-
         >
           Log out!
         </Button>
