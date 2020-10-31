@@ -21,6 +21,7 @@ python-dotenv = "*"
 python-decouple = "*"
 psycopg2-binary = "*"
 django-heroku = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.8"
