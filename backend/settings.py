@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['test-vsite.herokuapp.com', '127.0.0.1', 'localhost', 'react-pr.herokuapp.com']
 
 # Application definition
 
@@ -103,17 +103,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 import dj_database_url
-DATABASES = {
-    'default': dj_database_url.config()
-}
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -192,10 +191,4 @@ AUTHENTICATION_BACKENDS = [
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
-#mysql://
-# b81045c43b6103
-# :
-# 6e7b3a3c
-# @
-# us-cdbr-east-02.cleardb.com
-# /heroku_fe112701801d5d1?
+django_heroku.settings(locals())
