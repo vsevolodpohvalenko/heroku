@@ -192,3 +192,10 @@ AUTHENTICATION_BACKENDS = [
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+#mysql://
+# b81045c43b6103
+# :
+# 6e7b3a3c
+# @
+# us-cdbr-east-02.cleardb.com
+# /heroku_fe112701801d5d1?
