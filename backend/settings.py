@@ -191,4 +191,3 @@ AUTHENTICATION_BACKENDS = [
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
-django_heroku.settings(locals())
