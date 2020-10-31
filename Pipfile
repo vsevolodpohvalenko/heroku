@@ -19,6 +19,8 @@ dj-rest-auth = "*"
 mysqlclient = "*"
 python-dotenv = "*"
 python-decouple = "*"
+psycopg2-binary = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.8"

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os, sys
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lyceum-site.herokuapp.com', '127.0.0.1', 'localhost', 'react-pr.herokuapp.com']
+ALLOWED_HOSTS = ['test-vsite.herokuapp.com', '127.0.0.1', 'localhost', 'react-pr.herokuapp.com']
 
 # Application definition
 
@@ -184,4 +185,5 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+django_heroku.settings(locals())
 
