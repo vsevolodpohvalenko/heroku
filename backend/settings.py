@@ -105,12 +105,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('BASE_NAME'),
-        'USER': config('BASE_USER'),
-        'PASSWORD': config('BASE_PASSWORD'),
-        'HOST': 'eu-cdbr-west-03.cleardb.net',
-        'PORT': config('PORT', default='3306'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 import dj_database_url
