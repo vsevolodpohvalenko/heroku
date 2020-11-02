@@ -109,8 +109,8 @@ DATABASES = {
         'NAME': config('BASE_NAME'),
         'USER': config('BASE_USER'),
         'PASSWORD': config('BASE_PASSWORD'),
-        'HOST': config('HOST', default='3306'),
-        'PORT': config('PORT'),
+        'HOST': 'eu-cdbr-west-03.cleardb.net',
+        'PORT': config('PORT', default='3306'),
     }
 }
 
