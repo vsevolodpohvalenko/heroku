@@ -9,3 +9,9 @@ section.light aside div.ant-layout-sider-trigger{
 section.light aside div.ant-layout-sider-trigger span{
     color: black;
 }
+.active{
+    background-color: #002951 !important;
+}
+.default{
+    background-color: #f0f2f5;
+}

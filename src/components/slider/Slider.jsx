@@ -6,13 +6,16 @@ import rightArrow from '../../images/next.svg'
 import s from './slider.module.css'
 
 
+
 export const Slider = (props) => {
+    debugger
     let container = 0
 
     window.onmousemove = function (e) {
 
         container = (document.getElementById(`container`).offsetWidth)/3;
     }
+
 
     useEffect(() => {
         container = (document.getElementById(`container`).offsetWidth)/3
@@ -44,7 +47,7 @@ export const Slider = (props) => {
 
 
     const nextSlide = () => {
-        if (activeIndex === (props.slides.length-3)) {
+        if (activeIndex === (props.Newslides.length-3)) {
             return setState({
                 ...state,
                 translate: 0,
@@ -64,8 +67,8 @@ export const Slider = (props) => {
         if (activeIndex === 0) {
             return setState({
                 ...state,
-                translate: (props.slides.length-3) * getWidth(),
-                activeIndex: (props.slides.length-3)
+                translate: (props.Newslides.length-3) * getWidth(),
+                activeIndex: (props.Newslides.length-3)
             })
         }
 
@@ -80,10 +83,10 @@ export const Slider = (props) => {
             <SliderContent
                 translate={translate}
                 transition={transition}
-                width={getWidth() * props.slides.length}
+                width={getWidth() * props.Newslides.length}
             >
-                {props.slides.map((slide, i) => (
-                    <Slide key={slide + i} content={slide}/>
+                {props.Newslides.map((slide, i) => (
+                    <Slide key={slide.title + i} content={slide}/>
                 ))}
             </SliderContent>
             <Arrow direction="left" handleClick={prevSlide}/>
@@ -122,13 +125,13 @@ const Slide = ({content}) => (
       min-width: 31%;
       margin: 1%;
       border-radius: 2  %;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${content}');
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${content.photo}');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
     `}
-    ><div className={s.news_title}><h5>Otter's news</h5>
-        <p>I am funny otter and I need some news! Tell me something or I will be upset:(</p></div></div>
+    ><div className={s.news_title}><h5>{content.title}</h5>
+        <p>{content.text}(</p></div></div>
 )
 
 

@@ -1,15 +1,24 @@
 import {Layout, Menu, Row} from "antd";
 import s from '../sidebar/sidebar.module.css'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../sidebar/sidebar.css'
 
 import {HeaderC} from "../header/header";
 import {FooterC} from "../footer/footer";
 import {SiderDemo} from "../sidebar/sidebar";
 import MainSlider from "../slider/mainSlider";
+import {store} from "../../store/store";
+import {getArticleR, getNewsR, getNewsSlidesR} from "../../store/slider_reducer";
+import {GoogleSocialAuth} from "../Login/GoogleLogin";
+
 
 export const {Header, Content, Footer, Sider} = Layout
 export const ForGuests = (props:any) => {
+        useEffect(() => {
+        store.dispatch(getNewsSlidesR())
+        store.dispatch(getNewsR())
+        store.dispatch(getArticleR())
+    }, [])
     const [collapse, setCollapse] = useState<boolean | undefined>(true)
     const [Theme, setTheme] = useState<"dark" | "light" | undefined>('light')
     const onCollapse = () => {
@@ -22,9 +31,11 @@ export const ForGuests = (props:any) => {
             <Layout className={'site-layout'}>
                 <HeaderC collapse={collapse} CurrentTheme={CurrentTheme} setTheme={setTheme} Theme={Theme}/>
                 <Content style={{margin: '0, 16px'}}>
-                    <MainSlider collapse={collapse}/>
+                    <MainSlider CurrentTheme={CurrentTheme} collapse={collapse}/>
+                    <GoogleSocialAuth/>
+
                 </Content>
-                <FooterC/>
+                <FooterC CurrentTheme={CurrentTheme}/>
             </Layout>
         </Layout>
     )

@@ -6,7 +6,7 @@ export const config = {
     }
 }
 export const instance = axios.create({
-    baseURL: 'https://test-vsite.herokuapp.com/',
+    baseURL: 'http://127.0.0.1:8000/',
 })
 export const configForData = {
     headers: {

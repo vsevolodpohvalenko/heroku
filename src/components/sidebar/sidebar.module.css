@@ -14,6 +14,12 @@
     padding: 0 35px;
 }
 .dark {
+     opacity: 1;
+    -moz-transition: all 0.2s ease-out;  /* FF4+ */
+    -o-transition: all 0.2s ease-out;  /* Opera 10.5+ */
+    -webkit-transition: all 0.2s ease-out;  /* Saf3.2+, Chrome */
+    -ms-transition: all 0.2s ease-out;  /* IE10? */
+    transition: all 0.2s ease-out;
     color: #fff;
 }
 .light2 {

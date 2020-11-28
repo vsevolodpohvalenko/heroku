@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login';
 import {googleLogin, logOut} from "../api/Google_api";
 import {message} from "antd";
 import Button from "antd/es/button";
-import {LogoutOutlined} from '@ant-design/icons';
+import s from './Google.module.css'
 
 export const GoogleSocialAuth = () => {
         function getCookie(name: any) {
@@ -47,6 +47,8 @@ export const GoogleSocialAuth = () => {
     function handleSubmit() {
         debugger
         logOut(configForLogin).then(r => message.info("You're logged out", 3))
+        localStorage.removeItem("key")
+        console.log(localStorage.getItem("key"))
     }
 
 
@@ -56,7 +58,7 @@ export const GoogleSocialAuth = () => {
     }
 
     return (
-        <div className="App">
+        <div className={s.main}>
 
             <GoogleLogin
                 clientId="383178123345-iirqu0274iepnsnp9bt39hhvmt5ej19l.apps.googleusercontent.com"

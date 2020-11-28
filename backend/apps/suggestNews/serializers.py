@@ -1,10 +1,11 @@
 from rest_framework import serializers
-from .models import SuggestNews, NewsFeed, TimeTable, PostPart, Post, Topics, Slider
+from .models import  NewsFeed, TimeTable, PostPart, Post, Topics, Slider, Books, Subject, Article, \
+    SuggestEvent
 
 
-class SuggestNewsSerializer(serializers.HyperlinkedModelSerializer):
+class SuggestEventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = SuggestNews
+        model = SuggestEvent
         fields = "__all__"
 
 
@@ -41,4 +42,22 @@ class TopicsS(serializers.HyperlinkedModelSerializer):
 class SliderS(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Slider
+        fields = "__all__"
+
+
+class SubjectS(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Subject
+        fields = "__all__"
+
+
+class BooksS(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Books
+        fields = "__all__"
+
+
+class ArticleS(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Article
         fields = "__all__"

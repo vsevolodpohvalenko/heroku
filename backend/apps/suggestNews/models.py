@@ -1,15 +1,36 @@
 from django.db import models
 
 
-class SuggestNews(models.Model):
+class SuggestEvent(models.Model):
     title = models.CharField(max_length=20)
-    mainText = models.TextField()
-    attachments = models.FileField()
+    textFont = models.CharField(default="default",max_length=256)
+    titleFont = models.CharField(default="default", max_length=256)
+    date = models.CharField(default="default", max_length=256)
     active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+
+class Article(models.Model):
+    subTitle = models.CharField(max_length=256)
+    mainText = models.TextField()
+    attachment = models.FileField()
+    videoLink = models.CharField(max_length=256)
+    videoBackground = models.FileField()
+    News = models.ForeignKey(SuggestEvent, on_delete=models.CASCADE)
 
 
 class Topics(models.Model):
-    topic: models.CharField(max_length=128)
+    topic = models.CharField(max_length=128, default="fruit")
+
+    class Meta:
+        verbose_name = "Topic"
+        verbose_name_plural = "Topics"
+        ordering = ('topic',)
+
+    def __str__(self):
+        return self.topic
 
 
 class NewsFeed(models.Model):
@@ -37,3 +58,18 @@ class PostPart(models.Model):
     link = models.CharField(max_length=256)
     title = models.CharField(max_length=128)
     text = models.TextField()
+
+
+class Subject(models.Model):
+    title = models.TextField()
+
+    class Meta:
+        verbose_name = 'Subject'
+        verbose_name_plural = 'Subjects'
+        ordering = ('title',)
+
+
+class Books(models.Model):
+    linkOnDownload = models.FileField()
+    cover = models.FileField()
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)

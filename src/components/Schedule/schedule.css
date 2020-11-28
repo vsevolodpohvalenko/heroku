@@ -1,0 +1,16 @@
+.Pre{
+    margin: 20px;
+    width: 100px;
+}
+
+.anticon anticon-minus{
+    vertical-align: baseline
+}
+
+svg{vertical-align: baseline !important;}
+p span svg{
+    width: 50px !important;
+    height: 50px !important;
+    color: #1aabfd !important;
+
+}

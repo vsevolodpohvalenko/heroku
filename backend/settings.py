@@ -103,14 +103,26 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# DATABASES = {
+#     'OPTIONS ': {
+#         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#     },
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config('BASE_NAME'),
+#         'USER': config('BASE_USER'),
+#         'PASSWORD': config('BASE_PASSWORD'),
+#         'HOST': 'eu-cdbr-west-03.cleardb.net',
+#         'PORT': config('DJANGO_PORT', default='3306'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
+    'default' : {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
-import dj_database_url
-DATABASES['default'].update(dj_database_url.config(conn_max_age=600))
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -185,6 +197,5 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')

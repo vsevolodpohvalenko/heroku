@@ -24,13 +24,13 @@ export const SiderDemo = (props:{CurrentTheme:boolean, onCollapse:() => void, Th
                     <Menu.Item key={'1'} icon={<PieChartOutlined/>}>
                         Option 1
                     </Menu.Item>
-                    <Menu.Item key={'2'} icon={<CalendarOutlined />} title={'Team'}>
-                        Option 2
-                    </Menu.Item>
+                    <SubMenu key={'sub05'} icon = {<CalendarOutlined />} title={"Schedule"}>
+                        <Menu.Item key={'5'}>A week</Menu.Item>
+                        <Menu.Item key={'5.5'}>B week</Menu.Item>
+                    </SubMenu>
                     <SubMenu key={"sub1"} icon={<ReadOutlined />} title={'User'}>
-                        <Menu.Item key={'3'}>Bill</Menu.Item>
-                        <Menu.Item key={'4'}>Nick</Menu.Item>
-                        <Menu.Item key={'5'}>George</Menu.Item>W
+                        <Menu.Item key={'3'}>Settings</Menu.Item>
+                        <Menu.Item key={'4'}>Friends</Menu.Item>
                     </SubMenu>
                     <SubMenu key={"sub2"} title={"Інформація"} icon={<TeamOutlined/>}>
                         <Menu.Item key={'6'}>Батькам</Menu.Item>

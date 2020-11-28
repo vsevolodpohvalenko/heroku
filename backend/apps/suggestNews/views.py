@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
-from .models import SuggestNews, Topics, TimeTable, NewsFeed, PostPart, Post, Slider
-from .serializers import SuggestNewsSerializer, TopicsS, TimeTableS, NewsFeedS, PostPartS, PostS, SliderS
+from .models import SuggestEvent, Topics, TimeTable, NewsFeed, PostPart, Post, Slider, Subject, Books, Article
+from .serializers import SuggestEventSerializer, TopicsS, TimeTableS, NewsFeedS, PostPartS, PostS, SliderS, SubjectS, \
+    BooksS, ArticleS
 
 
-class SuggestNewsViewSet(viewsets.ModelViewSet):
-    queryset = SuggestNews.objects.all()
-    serializer_class = SuggestNewsSerializer
+class SuggestEventViewSet(viewsets.ModelViewSet):
+    queryset = SuggestEvent.objects.all()
+    serializer_class = SuggestEventSerializer
     permission_classes = [
         permissions.AllowAny
     ]
@@ -66,3 +67,26 @@ class SliderSViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SliderS
+
+
+class SubjectViewSet(viewsets.ModelViewSet):
+    queryset = Subject.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = SubjectS
+
+
+class BooksViewSet(viewsets.ModelViewSet):
+    queryset = Books.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = BooksS
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = ArticleS

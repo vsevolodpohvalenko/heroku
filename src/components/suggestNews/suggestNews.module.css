@@ -1,3 +1,9 @@
 .dropzone{
     border: 2px solid #60d7e6;
+    width: 80%;
+    display: inline-block;
+}
+.fonts {
+    display: flex;
+    justify-content: space-evenly;
 }
