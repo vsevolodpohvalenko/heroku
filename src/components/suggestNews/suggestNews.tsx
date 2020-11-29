@@ -3,19 +3,42 @@ import {useDropzone} from 'react-dropzone'
 import s from './suggestNews.module.css'
 import {SuggestNewsApi} from "../api/SuggestNews_api";
 import {Form, Input, Button, Spin, Select, message} from 'antd';
-import {MinusOutlined, InboxOutlined, YoutubeOutlined} from '@ant-design/icons';
+import {MinusOutlined, InboxOutlined, YoutubeOutlined, SmileOutlined} from '@ant-design/icons';
 import '../Schedule/schedule.css'
 import Dropzone from 'react-dropzone'
+
+type AttachmentFile = {lastModified: number, lastModifiedDate: string, preview: string, name: string, path: string, size: number, type: string, webkitRelativePath: string}
+
+type ArticleType = { [index: string]: string | AttachmentFile, subTitle: string, articleText: string, attachment: AttachmentFile, youtubeBackground: AttachmentFile, fontForText: string, fontForTitle: string, link: string }
+
 
 export const SuggestNews = (props: any) => {
     const [title, setTitle] = useState<string>('');
     const [mainText, setMainText] = useState<string>('');
     const [Attachment, setAttachment] = useState<any>('');
-    const [article, setArticle] = useState([{
-        index: 0,
+    const [article, setArticle] = useState<Array<ArticleType>>([{
         subTitle: "",
         articleText: "",
-        attachment: "",
+        attachment: {
+            lastModified: 0,
+            lastModifiedDate: "",
+            name: "",
+            path: "",
+            size: 0,
+            type: "",
+            preview: "",
+            webkitRelativePath: ""
+        },
+        youtubeBackground: {
+            lastModified: 0,
+            lastModifiedDate: "",
+            name: "",
+            path: "",
+            size: 0,
+            type: "",
+            preview: "",
+            webkitRelativePath: ""
+        },
         fontForText: "Poppins",
         fontForTitle: "Poppins",
         link: ""
@@ -42,20 +65,37 @@ export const SuggestNews = (props: any) => {
 
     const AddArticle = () => {
         setArticle([...article, {
-            index: article[article.length - 1].index + 1,
             subTitle: "",
             articleText: "",
-            attachment: "",
+            attachment: {
+                lastModified: 0,
+                lastModifiedDate: "",
+                name: "",
+                preview: "",
+                path: "",
+                size: 0,
+                type: "",
+                webkitRelativePath: ""
+            },
+            youtubeBackground: {
+                lastModified: 0,
+                lastModifiedDate: "",
+                name: "",
+                preview: "",
+                path: "",
+                size: 0,
+                type: "",
+                webkitRelativePath: ""
+            },
             fontForText: "Poppins",
             fontForTitle: "Poppins",
             link: ""
         }])
         console.log([...article, {
-            index: article[article.length - 1].index + 1,
             subTitle: "",
             articleText: "",
-            attachment: "",
-            youtubeBackground: "",
+            attachment: {},
+            youtubeBackground: {},
             fontForText: "Poppins",
             fontForTitle: "Poppins",
             link: ""
@@ -66,14 +106,12 @@ export const SuggestNews = (props: any) => {
         debugger
         const {name, value} = e.target
         const NewArticle = [...article]
-        // @ts-ignore
         NewArticle[index][name] = value
         setArticle(NewArticle)
     }
     const OnChangeValueI = (e: string, index: number, name: string) => {
         debugger
         const NewArticle = [...article]
-        // @ts-ignore
         NewArticle[index][name] = e
         setArticle(NewArticle)
     }
@@ -81,16 +119,24 @@ export const SuggestNews = (props: any) => {
     const onDropCustom = (acceptedFiles: any, index: number, name: string) => {
         debugger
         const NewArticle = [...article]
-        // @ts-ignore
+        acceptedFiles.map((file: any) => Object.assign(file, {
+                preview: URL.createObjectURL(file)
+            }))
         NewArticle[index][name] = acceptedFiles[0]
     }
 
     const OnDelete = (index: number) => {
-        setArticle(article.filter((i) => i.index != index))
-        console.log(article.filter((i) => i.index != index))
+        setArticle(article.filter((el, i) => i != index))
+        console.log(article.filter((el, i) => i != index))
 
     }
-
+    const ThumbNail = (props: { index: number, name: string }) => {
+        // @ts-ignore
+        const preview = article[props.index][props.name].preview
+        return (
+            <img style={{width: 'auto', height: 100}} alt={"ThumbNail"} src={preview}/>
+        )
+    }
     return (
         <div>
             <Article HandleSubmit={HandleSubmit} title={title} setTitle={setTitle} isDragActive={isDragActive}
@@ -151,6 +197,7 @@ export const SuggestNews = (props: any) => {
                                 </Dropzone>
                             </div>
                         </Form.Item>
+
                     </Form.Item>
                     <Form.Item name={"Youtube Link"} label={"Youtube Link"}>
                         <Input name={"link"} value={art.articleText}
@@ -158,17 +205,27 @@ export const SuggestNews = (props: any) => {
                         />
                     </Form.Item>
                     <Form.Item>
+
                         <Form.Item name={"Youtube Background"} label={"Youtube Back"}>
                             <div className={s.dropzone}>
                                 <Dropzone
                                     onDrop={(acceptedFiles) => onDropCustom(acceptedFiles, index, 'youtubeBackground')}>
-                                    {({getRootProps, getInputProps}) => (
+                                    {({getRootProps, getInputProps, isDragActive}) => (
                                         <section>
                                             <div {...getRootProps()}>
                                                 <input {...getInputProps()} />
-                                                <p className={"ant-upload-drag-icon"}><YoutubeOutlined/></p>
-                                                <p className="ant-upload-text">Drag 'n' drop some files here, or click
-                                                    to select files</p>
+                                                {
+                                                    art.youtubeBackground.preview ==="" ?
+                                                        <div><p className={"ant-upload-drag-icon"}><YoutubeOutlined/></p>
+                                                    <p className="ant-upload-text">Drag 'n' drop some files here, or
+                                                        click
+                                                        to select files</p></div>
+                                                    :
+                                                    <div className={s.done} >
+                                                        <ThumbNail index={index} name={"youtubeBackground"}/></div>
+
+                                                }
+
                                             </div>
                                         </section>
                                     )}
@@ -182,7 +239,7 @@ export const SuggestNews = (props: any) => {
                         {index == article.length - 1 && (
                             <Button type={"dashed"} onClick={AddArticle}> Add an article </Button>)}
                         {index != 0 && (
-                            <Button type="primary" danger onClick={() => OnDelete(art.index)} icon={<MinusOutlined/>}
+                            <Button type="primary" danger onClick={() => OnDelete(index)} icon={<MinusOutlined/>}
                             />)}
                     </div>
                 </Form>))}
@@ -191,6 +248,7 @@ export const SuggestNews = (props: any) => {
         </div>
     )
 }
+
 
 const Article = (props: any) => {
     return (
