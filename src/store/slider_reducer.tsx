@@ -1,4 +1,4 @@
-import {getArticle, getNews, getNewsSlides, getSlides} from "../components/api/Slider_api";
+import {getArticle, getNews, getNewsSlides, getSlides} from "../api/Slider_api";
 
 const GET_SLIDES = "GET_SLIDES"
 const GET_NEWS_SLIDES = "GET_NEWS_SLIDES"

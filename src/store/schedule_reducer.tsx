@@ -1,6 +1,6 @@
 import React from "react";
-import {getNewsSlides} from "../components/api/Slider_api";
-import {Get_Schedule} from "../components/api/schedule_api";
+import {getNewsSlides} from "../api/Slider_api";
+import {Get_Schedule} from "../api/schedule_api";
 
 const GET_SCHEDULE = 'GET_SCHEDULE'
 

@@ -10,6 +10,8 @@ import {store} from "./store/store";
 import {Provider} from "react-redux";
 import TestPDF from "./components/Schedule/schedule";
 import UsefulBooks from "./components/books";
+import {NewsCatalog} from "./components/AcceptNews/AcceptNews";
+import {NewsWithRouter} from "./components/News/NewsContainer";
 
 
 class App extends React.Component {
@@ -24,6 +26,8 @@ class App extends React.Component {
                     <Route exact path={"/login"} render={() => <MainTemplate><GoogleSocialAuth/></MainTemplate>}/>
                     <Route exact path={"/timetable"} render={() => <MainTemplate><TestPDF/></MainTemplate>}/>
                     <Route exact path={"/books"} render={() => <MainTemplate><UsefulBooks/></MainTemplate>}/>
+                    <Route exact path={'/catalog'} render={() => <MainTemplate><NewsCatalog/></MainTemplate>}/>
+                    <Route exact path={"/news/:id"} component={NewsWithRouter}/>
                     <Route exact path={"/"} render={() =><ForGuests/>}/>
                 </Switch>
                 </Provider>

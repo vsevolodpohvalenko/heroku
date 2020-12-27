@@ -5,13 +5,17 @@ import 'antd/dist/antd.css';
 import s from './slider.module.css'
 import {AppStateType, store} from '../../store/store'
 import {connect} from "react-redux";
-import {getNewsSlidesR, getSlidesR} from "../../store/slider_reducer";
+import {getArticleR, getNewsR,} from "../../store/slider_reducer";
+import {getArticle} from "../../api/Slider_api";
 
-const MainSlider = ({collapse, CurrentTheme, slides, getSlidesR, newsSlides, getNewsSlidesR}: any) => {
-debugger
+const MainSlider = ({collapse, CurrentTheme, slides, ArticleSlides, newsSlides}: any) => {
+
 
     useEffect(() => {
-        getSlidesR()
+
+        store.dispatch(getNewsR())
+        store.dispatch(getArticleR())
+
     }, [])
 
     return   (
@@ -21,12 +25,13 @@ debugger
                 {slides.map((i: any) => (
                     <div><img className={s.slide} src={i.slide}/></div>))}
             </Carousel>,
-            <Slider collapse={collapse} Newslides={newsSlides}/>
+            { ArticleSlides.length > 0  && newsSlides.length > 0 &&  <Slider collapse={collapse} Articles={ArticleSlides} Newslides={newsSlides}/>}
         </div>
     )}
 const mapStateToProps = (state: AppStateType) => ({
     slides: state.Slider.slides,
-    newsSlides: state.Slider.newsSlides
+    newsSlides: state.Slider.news.filter((e:any) => e.active === true),
+    ArticleSlides: state.Slider.articles
 })
 
-export default connect(mapStateToProps, {getSlidesR, getNewsSlidesR})(MainSlider)
+export default connect(mapStateToProps, {getArticleR, getNewsR})(MainSlider)

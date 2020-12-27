@@ -1,13 +1,29 @@
-.dropzone{
+.dropzone {
     border: 2px solid #60d7e6;
     width: 80%;
     display: inline-block;
 }
+
 .fonts {
     display: flex;
     justify-content: space-evenly;
 }
-.done{
+
+.date {
+
+    text-align: center;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 20vw;
+    height: 32px;
+    padding: 0 11px;
+}
+
+.done {
     display: flex;
     justify-content: space-evenly;
 

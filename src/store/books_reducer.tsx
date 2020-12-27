@@ -1,5 +1,5 @@
 import React from "react";
-import {GetBooks} from "../components/api/Books_api";
+import {GetBooks} from "../api/Books_api";
 const GET_BOOKS = 'GET_BOOKS'
 
 interface GetBooks  {

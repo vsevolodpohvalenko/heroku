@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import  NewsFeed, TimeTable, PostPart, Post, Topics, Slider, Books, Subject, Article, \
-    SuggestEvent
+from .models import NewsFeed, TimeTable, PostPart, Post, Topics, Slider, Books, Subject, Article, \
+    SuggestEvent, SideBarItem, SideBarSubMenu
 
 
 class SuggestEventSerializer(serializers.HyperlinkedModelSerializer):
@@ -61,3 +61,15 @@ class ArticleS(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Article
         fields = "__all__"
+
+
+class SideBarSubMenuS(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = SideBarSubMenu
+        fields = '__all__'
+
+
+class SideBarItemS(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = SideBarItem
+        fields = '__all__'

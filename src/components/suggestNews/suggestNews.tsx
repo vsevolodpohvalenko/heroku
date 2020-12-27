@@ -1,21 +1,26 @@
 import React, {FormEvent, useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone'
 import s from './suggestNews.module.css'
-import {SuggestNewsApi} from "../api/SuggestNews_api";
+import {SuggestNewsApi} from "../../api/SuggestNews_api";
 import {Form, Input, Button, Spin, Select, message} from 'antd';
 import {MinusOutlined, InboxOutlined, YoutubeOutlined, SmileOutlined} from '@ant-design/icons';
+import 'antd/dist/antd.css';
 import '../Schedule/schedule.css'
 import Dropzone from 'react-dropzone'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-type AttachmentFile = {lastModified: number, lastModifiedDate: string, preview: string, name: string, path: string, size: number, type: string, webkitRelativePath: string}
 
-type ArticleType = { [index: string]: string | AttachmentFile, subTitle: string, articleText: string, attachment: AttachmentFile, youtubeBackground: AttachmentFile, fontForText: string, fontForTitle: string, link: string }
+type AttachmentFile = { lastModified: number, lastModifiedDate: string, preview: string, name: string, path: string, size: number, type: string, webkitRelativePath: string }
+
+type ArticleType = { [index: string]: string | AttachmentFile, subTitle: string, articleText: string, attachment: AttachmentFile, fontForText: string, fontForTitle: string, link: string }
 
 
 export const SuggestNews = (props: any) => {
     const [title, setTitle] = useState<string>('');
-    const [mainText, setMainText] = useState<string>('');
-    const [Attachment, setAttachment] = useState<any>('');
+    const [titleFont, setTitleFont] = useState<string>('');
+    const [titleSize, setTitleSize] = useState<any>('');
+    const [Date, setDate] = useState<any>('')
     const [article, setArticle] = useState<Array<ArticleType>>([{
         subTitle: "",
         articleText: "",
@@ -29,36 +34,39 @@ export const SuggestNews = (props: any) => {
             preview: "",
             webkitRelativePath: ""
         },
-        youtubeBackground: {
-            lastModified: 0,
-            lastModifiedDate: "",
-            name: "",
-            path: "",
-            size: 0,
-            type: "",
-            preview: "",
-            webkitRelativePath: ""
-        },
+
         fontForText: "Poppins",
         fontForTitle: "Poppins",
         link: ""
     }])
-    const onDrop = useCallback(acceptedFiles => {
-        debugger
-        setAttachment(acceptedFiles.map((file: any) => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            }))
-        )
 
-    }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
     const HandleSubmit = () => {
+        debugger
         let form_data = new FormData();
         form_data.append('title', title);
-        form_data.append('mainText', mainText);
-        form_data.append('attachments', Attachment[0], Attachment[0].name);
-        SuggestNewsApi.postNews(form_data)
-        props.history.push('/')
+        form_data.append('titleFont', titleFont);
+        form_data.append('titleSize', titleSize)
+        form_data.append('date', Date)
+
+        SuggestNewsApi.postNews(form_data).then(r => {
+                article.map((art) => {
+                    debugger
+                    let form_data = new FormData();
+                    form_data.append('subTitle', art.subTitle);
+                    form_data.append('mainText', art.articleText);
+
+                    // @ts-ignore
+                    form_data.append('attachment', art.attachment[0], art.attachment[0].name);
+                    form_data.append('fontForText', art.fontForText);
+                    form_data.append('fontForTitle', art.fontForTitle);
+                    form_data.append('videoLink', art.link);
+                    form_data.append("News", r.data.url)
+                    SuggestNewsApi.postArticle(form_data)
+                })
+            }
+        )
+
 
     };
     if (!localStorage.getItem('key')) return (<div><Spin size="large"/></div>)
@@ -120,9 +128,10 @@ export const SuggestNews = (props: any) => {
         debugger
         const NewArticle = [...article]
         acceptedFiles.map((file: any) => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            }))
-        NewArticle[index][name] = acceptedFiles[0]
+            preview: URL.createObjectURL(file)
+        }))
+        NewArticle[index][name] = acceptedFiles
+        setArticle(NewArticle)
     }
 
     const OnDelete = (index: number) => {
@@ -132,16 +141,49 @@ export const SuggestNews = (props: any) => {
     }
     const ThumbNail = (props: { index: number, name: string }) => {
         // @ts-ignore
-        const preview = article[props.index][props.name].preview
+        const preview = article[props.index][props.name][0].preview
         return (
             <img style={{width: 'auto', height: 100}} alt={"ThumbNail"} src={preview}/>
         )
     }
     return (
         <div>
-            <Article HandleSubmit={HandleSubmit} title={title} setTitle={setTitle} isDragActive={isDragActive}
-                     getRootProps={getRootProps} mainText={mainText} setMainText={setMainText}
-                     getInputProps={getInputProps}/>
+            <Form layout={"horizontal"} name={"nest-message"}
+                  style={{margin: 20, background: "white", borderRadius: 10, padding: 10}}
+            >
+                <Form.Item name={"Header"} label={"Header"} rules={[
+                    {
+                        required: true,
+                    }
+                ]}>
+                    <Input value={props.title} onChange={(e) => setTitle(e.target.value)} name={"title"}/>
+
+                </Form.Item>
+
+                <div className={s.fonts}>
+                    <Form.Item style={{width: '100px'}}  label={"Font for Title"}>
+                        <Select onChange={e => setTitleFont(e)}
+                                defaultValue={titleFont}>
+                            <Select.Option value="Poppins">Poppins</Select.Option>
+                            <Select.Option value="Montserrat">Montserrat</Select.Option>
+                            <Select.Option value="Calibri">Calibri</Select.Option>
+                            <Select.Option value="Arial">Arial</Select.Option>
+                        </Select>
+                    </Form.Item> <Form.Item style={{width: '100px'}} label={"Font for Text"}>
+                    <Select onChange={e => setTitleSize(e)} defaultValue={titleSize}>
+                        <Select.Option value="1">1</Select.Option>
+                        <Select.Option value="2">2</Select.Option>
+                        <Select.Option value="3">3</Select.Option>
+                        <Select.Option value="4">4</Select.Option>
+                        <Select.Option value="5">5</Select.Option>
+                    </Select>
+                </Form.Item>
+                </div>
+
+                <Form.Item style={{ maxWidth: '100px',  display: 'contents'}}   label={"Choose date:"}>
+                    <DatePicker  className={s.date} selected={Date} onChange={date => setDate(date)}/>
+                </Form.Item>
+            </Form>
             {article.map((art, index) => (
                 <Form style={{margin: 20, background: "white", borderRadius: 10, padding: 20}}> <Form.Item
                     label={"Subtitle"}>
@@ -149,7 +191,7 @@ export const SuggestNews = (props: any) => {
                            style={{width: '80%'}}/>
                 </Form.Item>
                     <div className={s.fonts}>
-                        <Form.Item style={{width: '10%'}} label={"Font for Title"}>
+                        <Form.Item style={{width: '100px'}} label={"Font for Title"}>
                             <Select onChange={e => OnChangeValueI(e, index, "fontForTitle")}
                                     defaultValue={art.fontForTitle}>
                                 <Select.Option value="Poppins">Poppins</Select.Option>
@@ -157,7 +199,7 @@ export const SuggestNews = (props: any) => {
                                 <Select.Option value="Calibri">Calibri</Select.Option>
                                 <Select.Option value="Arial">Arial</Select.Option>
                             </Select>
-                        </Form.Item> <Form.Item style={{width: '10%'}} label={"Font for Text"}>
+                        </Form.Item> <Form.Item style={{width: '100px'}}  label={"Font for Text"}>
                         <Select onChange={e => OnChangeValueI(e, index, "fontForText")} defaultValue={art.fontForText}>
                             <Select.Option value="Poppins">Poppins</Select.Option>
                             <Select.Option value="Montserrat">Montserrat</Select.Option>
@@ -204,36 +246,6 @@ export const SuggestNews = (props: any) => {
                                onChange={e => OnChangeValue(e, index)}
                         />
                     </Form.Item>
-                    <Form.Item>
-
-                        <Form.Item name={"Youtube Background"} label={"Youtube Back"}>
-                            <div className={s.dropzone}>
-                                <Dropzone
-                                    onDrop={(acceptedFiles) => onDropCustom(acceptedFiles, index, 'youtubeBackground')}>
-                                    {({getRootProps, getInputProps, isDragActive}) => (
-                                        <section>
-                                            <div {...getRootProps()}>
-                                                <input {...getInputProps()} />
-                                                {
-                                                    art.youtubeBackground.preview ==="" ?
-                                                        <div><p className={"ant-upload-drag-icon"}><YoutubeOutlined/></p>
-                                                    <p className="ant-upload-text">Drag 'n' drop some files here, or
-                                                        click
-                                                        to select files</p></div>
-                                                    :
-                                                    <div className={s.done} >
-                                                        <ThumbNail index={index} name={"youtubeBackground"}/></div>
-
-                                                }
-
-                                            </div>
-                                        </section>
-                                    )}
-
-                                </Dropzone>
-                            </div>
-                        </Form.Item>
-                    </Form.Item>
 
                     <div className={s.fonts}>
                         {index == article.length - 1 && (
@@ -244,7 +256,7 @@ export const SuggestNews = (props: any) => {
                     </div>
                 </Form>))}
 
-            <Button type={"primary"} htmlType={"submit"}>Submit!</Button>
+            <Button type={"primary"} onClick={HandleSubmit} htmlType={"submit"}>Submit!</Button>
         </div>
     )
 }

@@ -1,0 +1,91 @@
+.channel{
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    padding: 50px;
+}
+.circle{
+    position: relative;
+    overflow: hidden;
+}
+.circle img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.circle.circle1{
+    width: 300px;
+    height: 300px;
+    float: left;
+    border-radius: 50%;
+    margin: 20px;
+    shape-outside: circle();
+}
+.channel h2{
+    color: black;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.active{
+    background-color: #8ee085;
+}
+.inactive{ background-color: #ff707c}
+
+.text{
+    float: left;
+    padding: 10px;
+    width: 49%;
+}
+.textImage{
+    padding: 10px;
+    width: 40%;
+    height: auto;
+
+
+    border-radius: 40px;
+    vertical-align: center;
+
+}
+.articleTextPart{
+    padding: 20px;
+    background: white;
+    min-height: 35vh;
+    width: 100%;
+    border-radius: 10px;
+}
+.Video{
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+}
+
+.date{
+    float: right;
+    padding: 20px;
+}
+@media (max-width: 411px) {
+
+.circle.circle1{
+    width: 100px;
+    height: 100px;
+    float: left;
+    border-radius: 50%;
+    margin: 20px;
+    shape-outside: circle();
+}
+    .channel h2{
+    color: black;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.channel p{
+font-size: 10px;
+}
+}

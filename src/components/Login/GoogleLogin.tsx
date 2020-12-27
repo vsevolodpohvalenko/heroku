@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import GoogleLogin from 'react-google-login';
-import {googleLogin, logOut} from "../api/Google_api";
+import {googleLogin, logOut} from "../../api/Google_api";
 import {message} from "antd";
 import Button from "antd/es/button";
 import s from './Google.module.css'

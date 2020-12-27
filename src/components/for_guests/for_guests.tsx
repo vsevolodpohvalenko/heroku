@@ -10,14 +10,17 @@ import MainSlider from "../slider/mainSlider";
 import {store} from "../../store/store";
 import {getArticleR, getNewsR, getNewsSlidesR} from "../../store/slider_reducer";
 import {GoogleSocialAuth} from "../Login/GoogleLogin";
+import {GetItemsR, GetSubMenuR} from "../../store/SideBar_redux";
 
 
 export const {Header, Content, Footer, Sider} = Layout
-export const ForGuests = (props:any) => {
-        useEffect(() => {
+export const ForGuests = (props: any) => {
+    useEffect(() => {
         store.dispatch(getNewsSlidesR())
         store.dispatch(getNewsR())
         store.dispatch(getArticleR())
+        store.dispatch(GetSubMenuR())
+        store.dispatch(GetItemsR())
     }, [])
     const [collapse, setCollapse] = useState<boolean | undefined>(true)
     const [Theme, setTheme] = useState<"dark" | "light" | undefined>('light')

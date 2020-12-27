@@ -4,21 +4,21 @@ import styled from '@emotion/styled'
 import leftArrow from '../../images/back.svg'
 import rightArrow from '../../images/next.svg'
 import s from './slider.module.css'
-
+import {Link} from 'react-router-dom'
 
 
 export const Slider = (props) => {
-    debugger
+
     let container = 0
 
     window.onmousemove = function (e) {
 
-        container = (document.getElementById(`container`).offsetWidth)/3;
+        container = document.getElementById(`container`) && (document.getElementById(`container`).offsetWidth)/3;
     }
 
 
     useEffect(() => {
-        container = (document.getElementById(`container`).offsetWidth)/3
+        container = document.getElementById(`container`) && (document.getElementById(`container`).offsetWidth)/3
     },)
     const getWidth = () => container;
     const [state, setState] = useState({
@@ -85,9 +85,11 @@ export const Slider = (props) => {
                 transition={transition}
                 width={getWidth() * props.Newslides.length}
             >
-                {props.Newslides.map((slide, i) => (
-                    <Slide key={slide.title + i} content={slide}/>
-                ))}
+                {props.Newslides.map((slide, i) => {
+                    debugger
+                    const wrapper = props.Articles.filter((e) => e.News === slide.url)
+                    return (<Slide key={slide.title + i} wrapper={wrapper[0]} content={slide} i={i}/>)
+                })}
             </SliderContent>
             <Arrow direction="left" handleClick={prevSlide}/>
             <Arrow direction="right" handleClick={nextSlide}/>
@@ -115,7 +117,7 @@ const SliderContent = styled.div`
     display: flex;
 `;
 
-const Slide = ({content}) => (
+const Slide = ({content, wrapper, i}) => (
     <div
         css={css`
       height: 100%;
@@ -125,13 +127,13 @@ const Slide = ({content}) => (
       min-width: 31%;
       margin: 1%;
       border-radius: 2  %;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${content.photo}');
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${wrapper.attachment}');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
     `}
-    ><div className={s.news_title}><h5>{content.title}</h5>
-        <p>{content.text}(</p></div></div>
+    ><div className={s.news_title}><Link to={`/news/${i+1}`}><h5>{content.title}</h5>
+        <p>{content.mainText}</p></Link></div></div>
 )
 
 

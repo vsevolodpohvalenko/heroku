@@ -1,11 +1,12 @@
 from django.db import models
 
 
+
 class SuggestEvent(models.Model):
-    title = models.CharField(max_length=20)
-    textFont = models.CharField(default="default",max_length=256)
+    title = models.CharField(max_length=128, default="title")
     titleFont = models.CharField(default="default", max_length=256)
-    date = models.CharField(default="default", max_length=256)
+    titleSize = models.CharField(default='2', max_length=256)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
     active = models.BooleanField(default=False)
 
     def __str__(self):
@@ -13,11 +14,12 @@ class SuggestEvent(models.Model):
 
 
 class Article(models.Model):
-    subTitle = models.CharField(max_length=256)
-    mainText = models.TextField()
+    subTitle = models.CharField(max_length=256, blank=True)
+    mainText = models.TextField( blank=True)
+    fontForText = models.CharField(max_length=256, blank=True)
+    fontForTitle = models.CharField(max_length=256, blank=True)
     attachment = models.FileField()
-    videoLink = models.CharField(max_length=256)
-    videoBackground = models.FileField()
+    videoLink = models.CharField(max_length=256, blank=True)
     News = models.ForeignKey(SuggestEvent, on_delete=models.CASCADE)
 
 
@@ -73,3 +75,14 @@ class Books(models.Model):
     linkOnDownload = models.FileField()
     cover = models.FileField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+
+class SideBarSubMenu(models.Model):
+    name = models.CharField(max_length=256)
+    icon = models.CharField(max_length=256)
+
+
+class SideBarItem(models.Model):
+    name = models.CharField(max_length=256)
+    SubMenu = models.ForeignKey(SideBarSubMenu, blank=True, on_delete=models.CASCADE)
+    link = models.CharField(max_length=256, default="/")
