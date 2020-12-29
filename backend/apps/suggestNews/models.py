@@ -1,10 +1,9 @@
 from django.db import models
 
 
-
 class SuggestEvent(models.Model):
     title = models.CharField(max_length=128, default="title")
-    titleFont = models.CharField(default="default", max_length=256)
+    titleFont = models.CharField(default="Poppins", max_length=256)
     titleSize = models.CharField(default='2', max_length=256)
     date = models.DateTimeField(auto_now_add=True, blank=True)
     active = models.BooleanField(default=False)
@@ -15,7 +14,7 @@ class SuggestEvent(models.Model):
 
 class Article(models.Model):
     subTitle = models.CharField(max_length=256, blank=True)
-    mainText = models.TextField( blank=True)
+    mainText = models.TextField(blank=True)
     fontForText = models.CharField(max_length=256, blank=True)
     fontForTitle = models.CharField(max_length=256, blank=True)
     attachment = models.FileField()
@@ -55,26 +54,25 @@ class Post(models.Model):
     title = models.CharField(max_length=128)
 
 
-class PostPart(models.Model):
-    attachment = models.FileField()
-    link = models.CharField(max_length=256)
-    title = models.CharField(max_length=128)
-    text = models.TextField()
-
-
-class Subject(models.Model):
-    title = models.TextField()
+class Page(models.Model):
+    pageName = models.CharField(max_length=128)
 
     class Meta:
-        verbose_name = 'Subject'
-        verbose_name_plural = 'Subjects'
-        ordering = ('title',)
+        verbose_name = 'Page'
+        verbose_name_plural = 'Pages'
+        ordering = ('pageName',)
+
+
+class LinkedText(models.Model):
+    link = models.CharField(max_length=256)
+    title = models.CharField(max_length=128)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, default=1)
 
 
 class Books(models.Model):
     linkOnDownload = models.FileField()
     cover = models.FileField()
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, default="smth")
 
 
 class SideBarSubMenu(models.Model):

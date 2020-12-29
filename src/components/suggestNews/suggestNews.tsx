@@ -1,7 +1,7 @@
 import React, {FormEvent, useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone'
 import s from './suggestNews.module.css'
-import {SuggestNewsApi} from "../../api/SuggestNews_api";
+import {InformationApi} from "../../api/Information_api";
 import {Form, Input, Button, Spin, Select, message} from 'antd';
 import {MinusOutlined, InboxOutlined, YoutubeOutlined, SmileOutlined} from '@ant-design/icons';
 import 'antd/dist/antd.css';
@@ -49,7 +49,7 @@ export const SuggestNews = (props: any) => {
         form_data.append('titleSize', titleSize)
         form_data.append('date', Date)
 
-        SuggestNewsApi.postNews(form_data).then(r => {
+        InformationApi.postNews(form_data).then(r => {
                 article.map((art) => {
                     debugger
                     let form_data = new FormData();
@@ -62,7 +62,7 @@ export const SuggestNews = (props: any) => {
                     form_data.append('fontForTitle', art.fontForTitle);
                     form_data.append('videoLink', art.link);
                     form_data.append("News", r.data.url)
-                    SuggestNewsApi.postArticle(form_data)
+                    InformationApi.postArticle(form_data)
                 })
             }
         )

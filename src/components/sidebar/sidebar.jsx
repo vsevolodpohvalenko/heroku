@@ -14,6 +14,7 @@ import {
 import s from './sidebar.module.css'
 import './sidebar.css'
 import {store} from "../../store/store";
+import {Link} from "react-router-dom";
 
 
 export const {Header, Content, Footer, Sider} = Layout
@@ -33,9 +34,7 @@ export const SiderDemo = (props) => {
             <div className={["logo", (props.CurrentTheme ? "light" : s.dark)].join(" ")}><img
                 className={[s.logo].join(" ")} alt={"logo"} src={logo}/></div>
             <Menu theme={props.Theme} defaultSelectedKeys={['1']} mode={'inline'}>
-                <Menu.Item key={'1'} icon={<PieChartOutlined/>}>
-                    Option 1
-                </Menu.Item>
+
                 {Sub.map((e, i) => {
                     const items = Items.filter((item) => item.SubMenu === e.url)
                     const ComponentMap = {
@@ -53,26 +52,13 @@ export const SiderDemo = (props) => {
                     return (
                         <SubMenu key={e.url} icon ={<DynamicMap/>} title={e.name}>
                             {items.map((v) => {
-                                return(<Menu.Item key={v.url}>{v.name}</Menu.Item>)
+                                return(<Menu.Item key={v.url}><Link style={{textDecoration: "none", background:"none", }} to={v.link}>{v.name}</Link></Menu.Item>)
                             })}
                         </SubMenu>
                     )
                 })}
 
-                <SubMenu key={'sub05'} icon={<CalendarOutlined/>} title={"Schedule"}>
-                    <Menu.Item key={'5'}>A week</Menu.Item>
-                    <Menu.Item key={'5.5'}>B week</Menu.Item>
-                </SubMenu>
-                <SubMenu key={"sub1"} icon={<ReadOutlined/>} title={'User'}>
-                    <Menu.Item key={'3'}>Settings</Menu.Item>
-                    <Menu.Item key={'4'}>Friends</Menu.Item>
-                </SubMenu>
-                <SubMenu key={"sub2"} title={"Інформація"} icon={<TeamOutlined/>}>
-                    <Menu.Item key={'6'}>Батькам</Menu.Item>
-                    <Menu.Item key={'7'}>Учням</Menu.Item>
-                </SubMenu>
-                <Menu.Item key={'8'} icon={<FileDoneOutlined/>}>Вступ</Menu.Item>
-                <Menu.Item key={'9'} icon={<EnvironmentOutlined/>}>Місцезнаходження</Menu.Item>
+
             </Menu>
         </Sider>
     )

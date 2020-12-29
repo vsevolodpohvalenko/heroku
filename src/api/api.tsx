@@ -14,5 +14,10 @@ export const configForData = {
     }
 }
 
-
+export const youtubeInstance = axios.create({
+    baseURL: `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLxwNN9rQNHbJAQUgWpzCW-XM-AtR2SJJJ&maxResults=12&key=AIzaSyAHWX_vcx-A1wPiXT_8zQZYMZ7du_AMJp8`,
+})
+export const YoutubeAPI = async () => {
+    return youtubeInstance.get("")
+}
 

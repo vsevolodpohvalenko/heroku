@@ -1,5 +1,5 @@
 import React from "react";
-import {SuggestNewsApi} from "../api/SuggestNews_api";
+import {InformationApi} from "../api/Information_api";
 import {SideBarApi} from "../api/SideBar_api";
 const GET_SUBMENU  = 'GET_SUBMENU'
 const GET_ITEM = 'GET_ITEM'

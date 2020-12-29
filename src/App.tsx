@@ -3,8 +3,8 @@ import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import './App.css';
 import {SuggestNews} from "./components/suggestNews/suggestNews";
-import {MainTemplate} from "./templates/main_template";
-import {ForGuests} from "./components/for_guests/for_guests";
+import MainTemplate from "./templates/main_template";
+import ForGuests from "./components/for_guests/for_guests";
 import {GoogleSocialAuth} from "./components/Login/GoogleLogin";
 import {store} from "./store/store";
 import {Provider} from "react-redux";

@@ -3,13 +3,16 @@
     top: 60%;
     color: white;
 }
-
+.link,
+.link:hover{
+    color: white;
+    text-decoration: none;
+}
 .slide {
     margin-top: 20px;
     height: 350px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    object-fit: cover;
+    object-position: center;
     width: 100%;
 }
 

@@ -101,8 +101,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 # DATABASES = {
 #     'OPTIONS ': {
 #         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
@@ -112,7 +110,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'NAME': config('BASE_NAME'),
 #         'USER': config('BASE_USER'),
 #         'PASSWORD': config('BASE_PASSWORD'),
-#         'HOST': 'eu-cdbr-west-03.cleardb.net',
+#         'HOST': 'remotemysql.com',
 #         'PORT': config('DJANGO_PORT', default='3306'),
 #     }
 # }

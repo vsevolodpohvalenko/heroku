@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import NewsFeed, TimeTable, PostPart, Post, Topics, Slider, Books, Subject, Article, \
+from .models import NewsFeed, TimeTable, LinkedText, Post, Topics, Slider, Books, Page, Article, \
     SuggestEvent, SideBarItem, SideBarSubMenu
 
 
@@ -21,9 +21,9 @@ class TimeTableS(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class PostPartS(serializers.HyperlinkedModelSerializer):
+class LinkedTextS(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = PostPart
+        model = LinkedText
         fields = "__all__"
 
 
@@ -45,9 +45,9 @@ class SliderS(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class SubjectS(serializers.HyperlinkedModelSerializer):
+class PageS(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Subject
+        model = Page
         fields = "__all__"
 
 

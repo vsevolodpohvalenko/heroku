@@ -10,22 +10,14 @@ import {getArticle} from "../../api/Slider_api";
 
 const MainSlider = ({collapse, CurrentTheme, slides, ArticleSlides, newsSlides}: any) => {
 
-
-    useEffect(() => {
-
-        store.dispatch(getNewsR())
-        store.dispatch(getArticleR())
-
-    }, [])
-
     return   (
         <div className={(CurrentTheme ? "default" : "active")}>
 
             <Carousel autoplay effect="fade">
                 {slides.map((i: any) => (
                     <div><img className={s.slide} src={i.slide}/></div>))}
-            </Carousel>,
-            { ArticleSlides.length > 0  && newsSlides.length > 0 &&  <Slider collapse={collapse} Articles={ArticleSlides} Newslides={newsSlides}/>}
+            </Carousel>
+            { ArticleSlides.length > 0  && newsSlides.length > 0 && <Slider collapse={collapse} Articles={ArticleSlides} Newslides={newsSlides}/>}
         </div>
     )}
 const mapStateToProps = (state: AppStateType) => ({

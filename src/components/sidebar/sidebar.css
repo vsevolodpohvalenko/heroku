@@ -1,5 +1,9 @@
 section.light aside div.ant-layout-sider-trigger{
     background-color: lightgrey;
+
+}
+.site-layout{
+    overflow: hidden;
 }
 .light {
     background-color: white;

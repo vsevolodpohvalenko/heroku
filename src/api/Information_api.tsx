@@ -1,7 +1,7 @@
 import React from "react";
 import {config, configForData, instance} from "./api";
 
-export const SuggestNewsApi = {
+export const InformationApi = {
     postNews: (data: any) => {
         debugger
         return instance.post('rest/suggestEvent/', data, config   )
@@ -17,6 +17,8 @@ export const SuggestNewsApi = {
     },
     getArticles : () => {
         return instance.get("rest/Article/")
+    },
+    getLinkedText : () => {
+        return instance.get('rest/LinkedText/' )
     }
-
 }

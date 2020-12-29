@@ -6,7 +6,7 @@ import {Skeleton, Switch, Typography} from "antd";
 import {CheckOutlined, CloseOutlined} from '@ant-design/icons'
 import s from './AcceptedFiles.module.css'
 import YouTube from 'react-youtube';
-import {SuggestNewsApi} from "../../api/SuggestNews_api";
+import {InformationApi} from "../../api/Information_api";
 import {store} from "../../store/store";
 
 export const NewsCatalog = () => {
@@ -24,7 +24,7 @@ export const NewsCatalog = () => {
         
         let ChangedNews = news[id]
         ChangedNews.active = !ChangedNews.active
-        SuggestNewsApi.putNews(id + 1, ChangedNews).then(r => store.dispatch(GetNewsR()))
+        InformationApi.putNews(id + 1, ChangedNews).then(r => store.dispatch(GetNewsR()))
     }
     return (
         <div>
@@ -37,16 +37,17 @@ export const NewsCatalog = () => {
                             defaultChecked={el.active}
                             onClick={() => OnClick(i)}
                     />
-                    <Typography.Title level={el.titleSize}
-                                      css={{fontFamily: `${el.titleFont}`}}>{el.title}</Typography.Title>
-                    {
+                    <div>
+                    <Typography.Title className={s.Title} level={el.titleSize}
+                                      css={{fontFamily: `${el.titleFont}`}}>{el.title}</Typography.Title></div>
+                   {
                         CurrentArticles(el.url).map((article: any) => (
                             <div className={s.Video}>
-                                <section className={s.channel}>
+                                <section className={article.mainText ? s.channel : s.plain}>
 
                                     <div>
                                         <h2>{article.subTitle}</h2>
-                                        <div className={[s.circle, s.circle1].join(" ")}>
+                                        <div className={article.mainText && [s.circle, s.circle1, (i%2 == 0 ? s.left : s.right)].join(" ") }>
                                         <img src={article.attachment}/>
                                     </div>
                                         <p>{article.mainText}</p>

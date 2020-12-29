@@ -23,7 +23,7 @@ export const NewsContainer = (props: any) => {
     };
     return(
         <div>
-            {actualNews.length > 0 && actualNews.map((el: { title: string, url: string, titleFont: string, titleSize: 2 | 1 | 5 | 3 | 4 | undefined, date: string, active: boolean }) => (
+            {actualNews.length > 0 && actualNews.map((el: { title: string, url: string, titleFont: string, titleSize: 2 | 1 | 5 | 3 | 4 | undefined, date: string, active: boolean }, i:number) => (
                 <div>
                     <p className={s.date}>{el.date && el.date.slice(0, 10)}</p>
                     <Typography.Title level={el.titleSize}
@@ -31,11 +31,11 @@ export const NewsContainer = (props: any) => {
                     {
                         CurrentArticles(el.url).map((article: any) => (
                             <div className={s.Video}>
-                                <section className={s.channel}>
+                                <section className={article.mainText ? s.channel : s.plain}>
 
                                     <div>
                                         <h2>{article.subTitle}</h2>
-                                        <div className={[s.circle, s.circle1].join(" ")}>
+                                        <div className={article.mainText && [s.circle, s.circle1, (i%2 == 0 ? s.left : s.right)].join(" ") }>
                                         <img src={article.attachment} alt={'image'}/>
                                     </div>
                                         <p>{article.mainText}</p>

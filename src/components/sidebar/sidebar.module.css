@@ -1,73 +1,229 @@
 
+.container {
+    position: relative;
+    width: 80vw;
+    display: flex;
+    margin-left: 4vw;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+    margin-top: 100px;
+
+    transform: skewY(-10deg);
+}
+
+.container .card {
+    position: relative;
+    width: 22.6vw;
+    margin-bottom: 20px;
+    background: white;
+    transition: 0.5s;
+}
+
+.container .card:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: #ff0a0a;
+    transform-origin: bottom;
+    transform: skewX(45deg);
+    transition: 0.5s;
+
+}
+
+.container .card:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 15px;
+    height: 100%;
+    background: #db1717;
+    transform-origin: left;
+    transform: skewY(45deg);
+    transition: 0.5s;
+    border-bottom: 200px solid #d9d9d9;
+}
+
+.container .card:hover {
+    transform: translateY(-40px);
+
+}
+
+.container .card .imgBx {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: #ff0a0a;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container .card .imgBx img {
+    max-width: 80%;
+    border-radius: 10px;
+    object-fit: cover;
+
+}
+
+.container .card .imgBx h3 {
+    position: relative;
+    color: white;
+    margin-top: 10px;
+}
+
+.container .card .content {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    padding: 20px;
+    background: #fff;
+    color: #777;
+    text-align: center;
+
+}
+
+.container .card .content:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(transparent, transparent, rgba(0, 0, 0, .1));
+    transform-origin: bottom;
+    transform: skewX(45deg);
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container .card:hover .content:before {
+    transform: translateY(40px) skewX(45deg);
+    filter: blur(5px);
+    opacity: 0.5;
+}
+
+.container .card:nth-child(1) {
+    z-index: 3;
+}
+
+.container .card:nth-child(2) {
+    z-index: 2;
+}
+
+.container .card:nth-child(3) {
+    z-index: 1;
+}
+
 
 .logo {
     height: 60px;
     width: 80px;
 }
-.switcher{
+
+.switcher {
     position: absolute;
     left: 90%;
     top: 0;
 }
 
+.link {
+    color: black;
+
+}
+
+.link:hover {
+    text-decoration: none;
+    color: rgba(32, 32, 32, 0.84);
+}
+
 .headerRight {
     padding: 0 35px;
 }
+
 .dark {
-     opacity: 1;
-    -moz-transition: all 0.2s ease-out;  /* FF4+ */
-    -o-transition: all 0.2s ease-out;  /* Opera 10.5+ */
-    -webkit-transition: all 0.2s ease-out;  /* Saf3.2+, Chrome */
-    -ms-transition: all 0.2s ease-out;  /* IE10? */
+    opacity: 1;
+    -moz-transition: all 0.2s ease-out; /* FF4+ */
+    -o-transition: all 0.2s ease-out; /* Opera 10.5+ */
+    -webkit-transition: all 0.2s ease-out; /* Saf3.2+, Chrome */
+    -ms-transition: all 0.2s ease-out; /* IE10? */
     transition: all 0.2s ease-out;
     color: #fff;
 }
+
 .light2 {
     background-color: #d3d3d3;
 }
- .li {
-        display: inline-block;
-        margin: 5px;
-        text-align: start;
-        vertical-align: 50px;
-        padding-left: 20px;
-        font-size: 24px;
-    }
+
+.li {
+    display: inline-block;
+    margin: 5px;
+    text-align: start;
+    vertical-align: 50px;
+    padding-left: 20px;
+    font-size: 24px;
+}
 
 @media (max-width: 992px) {
+
+    .container .card {
+        justify-content:center ;
+        width: 80%;
+        margin-left: 20px;
+    }
 
     .headerRight {
         padding: 0 25px;
     }
-        .switcher{
+
+    .switcher {
         left: 85%;
     }
-        .li{
-            font-size: 18px;
-        }
+
+    .li {
+        font-size: 18px;
+    }
 }
+
 @media (max-width: 768px) {
 
     .headerRight {
-    padding: 0 5px;
-}
-    .switcher{
+        padding: 0 5px;
+    }
+
+    .switcher {
         left: 80%;
     }
-    .switcher.active{
+
+    .switcher.active {
         visibility: hidden;
 
     }
-    .li{
+
+    .li {
         font-size: 12px;
         padding: 0;
     }
 }
+
 @media (max-width: 360px) {
-    .li{
+        .container .card {
+        justify-content:center ;
+        width: 80%;
+        margin-left: 5px;
+    }
+    .li {
         font-size: 10px;
     }
-    .switcher{
-        left:75%;
+
+    .switcher {
+        left: 75%;
     }
 }

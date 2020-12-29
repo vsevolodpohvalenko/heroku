@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
-from .models import SuggestEvent, Topics, TimeTable, NewsFeed, PostPart, Post, Slider, Subject, Books, Article, \
+from .models import SuggestEvent, Topics, TimeTable, NewsFeed, LinkedText, Post, Slider, Page, Books, Article, \
     SideBarSubMenu, SideBarItem
-from .serializers import SuggestEventSerializer, TopicsS, TimeTableS, NewsFeedS, PostPartS, PostS, SliderS, SubjectS, \
+from .serializers import SuggestEventSerializer, TopicsS, TimeTableS, NewsFeedS, LinkedTextS, PostS, SliderS, PageS, \
     BooksS, ArticleS, SideBarSubMenuS, SideBarItemS
 
 
@@ -46,12 +46,12 @@ class NewsFeedSViewSet(viewsets.ModelViewSet):
     serializer_class = NewsFeedS
 
 
-class PostPartSViewSet(viewsets.ModelViewSet):
-    queryset = PostPart.objects.all()
+class LinkedTextSViewSet(viewsets.ModelViewSet):
+    queryset = LinkedText.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = PostPartS
+    serializer_class = LinkedTextS
 
 
 class PostSViewSet(viewsets.ModelViewSet):
@@ -70,12 +70,12 @@ class SliderSViewSet(viewsets.ModelViewSet):
     serializer_class = SliderS
 
 
-class SubjectViewSet(viewsets.ModelViewSet):
-    queryset = Subject.objects.all()
+class PageViewSet(viewsets.ModelViewSet):
+    queryset = Page.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = SubjectS
+    serializer_class = PageS
 
 
 class BooksViewSet(viewsets.ModelViewSet):

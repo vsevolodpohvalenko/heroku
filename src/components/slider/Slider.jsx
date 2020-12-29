@@ -86,9 +86,9 @@ export const Slider = (props) => {
                 width={getWidth() * props.Newslides.length}
             >
                 {props.Newslides.map((slide, i) => {
-                    debugger
+
                     const wrapper = props.Articles.filter((e) => e.News === slide.url)
-                    return (<Slide key={slide.title + i} wrapper={wrapper[0]} content={slide} i={i}/>)
+                    return (<Slide getWidth={getWidth} key={slide.title + i} wrapper={wrapper[0]} content={slide} i={i}/>)
                 })}
             </SliderContent>
             <Arrow direction="left" handleClick={prevSlide}/>
@@ -101,7 +101,7 @@ export const Slider = (props) => {
 const SliderCSS = css`  
   position: relative;
   height: 60vh;
-  width:100%;
+  width:;
   margin: 0 auto;
   overflow: hidden;
   @media (max-width: 768px) {
@@ -117,23 +117,23 @@ const SliderContent = styled.div`
     display: flex;
 `;
 
-const Slide = ({content, wrapper, i}) => (
+const Slide = ({content, wrapper, i, getWidth}) => (
     <div
         css={css`
-      height: 100%;
-      color: white;
-      border-radius: 10px;
-      text-align: center;
-      min-width: 31%;
-      margin: 1%;
-      border-radius: 2  %;
+    height: 100%;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 31%;
+    max-width: 32%;
+    margin: 1%;
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${wrapper.attachment}');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     `}
-    ><div className={s.news_title}><Link to={`/news/${i+1}`}><h5>{content.title}</h5>
-        <p>{content.mainText}</p></Link></div></div>
+    ><div className={s.news_title}><Link className={s.link} to={`/news/${i+1}`}><h5>{content.title}</h5>
+        <p>{wrapper.mainText.slice(1,72).toLowerCase() + "..."}</p></Link></div></div>
 )
 
 

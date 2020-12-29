@@ -4,6 +4,7 @@ import {googleLogin, logOut} from "../../api/Google_api";
 import {message} from "antd";
 import Button from "antd/es/button";
 import s from './Google.module.css'
+import {GoogleOutlined} from '@ant-design/icons'
 
 export const GoogleSocialAuth = () => {
         function getCookie(name: any) {
@@ -60,17 +61,19 @@ export const GoogleSocialAuth = () => {
     return (
         <div className={s.main}>
 
-            <GoogleLogin
+            {localStorage.getItem('key') === null && <GoogleLogin
                 clientId="383178123345-iirqu0274iepnsnp9bt39hhvmt5ej19l.apps.googleusercontent.com"
-                buttonText="LOGIN WITH GOOGLE"
+                buttonText="Login"
                 onSuccess={googleResponse}
                 onFailure={responseGoogle}
-            />
-            <Button onClick={handleSubmit}
+            />}
+
+            {localStorage.getItem('key') != null && <Button onClick={handleSubmit}
                     type="primary"
+                    icon={<GoogleOutlined />}
             >
                 Log out!
-            </Button>
+            </Button>}
         </div>
     );
 }
